@@ -8,12 +8,24 @@ using namespace std;
 
 class Lexer
 {
-    vector<string> words;
+  public:
+    vector<string> lexems;
     vector<string>::iterator tokenPtr;
     Lexer(string path)
     {
-        words = readSrc(path);
+        lexems = readSrc(path);
     }
-    
+
+    void displayLexems()
+    {
+        for (string lexem : lexems)
+            cout << lexem << endl;
+    }
 };
+
+int main()
+{
+    Lexer lxr("src.lng");
+    lxr.displayLexems();
+}
 #endif

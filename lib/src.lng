@@ -1,17 +1,8 @@
 int main()
 begin
-    int n1, n2, n3;
-    if( expr relop expr )
-      	begin
-        	printf( n1);
-      	end
-    	if ( expr relop expr )
-     	begin
-		    printf( n2);
-     	end
-    	if( expr relop expr )
-   	    begin
-        	printf( n3);
-	    end
+    int n1, n2, 32n3;
+	if( expr relop expr)
+		begin
+			printf( 999 )
+	end
 end
-
