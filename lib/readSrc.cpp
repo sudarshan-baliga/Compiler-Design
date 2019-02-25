@@ -9,7 +9,7 @@ vector<string> readSrc(string path)
     ifstream file;
     vector<string> words;
     file.open(path);
-    string lexem;
+    string lexem = "", relopLexem = "";
     char ch;
     while (file >> noskipws >> ch)
     {
@@ -19,19 +19,40 @@ vector<string> readSrc(string path)
             {
                 if (lexem != "")
                     words.push_back(lexem);
+                if (relopLexem != "")
+                    words.push_back(relopLexem);
                 lexem = ch;
                 words.push_back(lexem);
                 lexem = "";
+                relopLexem = "";
+            }
+            else if (ch == '=' || ch == '<' || ch == '>' || ch == '!')
+            {
+                if (lexem != "")
+                    words.push_back(lexem);
+                lexem = "";
+                relopLexem += ch;
             }
             else
             {
+                if (relopLexem != "")
+                    words.push_back(relopLexem);
+                relopLexem = "";
                 lexem += ch;
             }
             continue;
         }
         if (lexem != "")
             words.push_back(lexem);
+        if (relopLexem != "")
+            words.push_back(relopLexem);
         lexem = "";
+        relopLexem = "";
     }
+    if (lexem != "")
+        words.push_back(lexem);
+    if (relopLexem != "")
+        words.push_back(relopLexem);
+
     return words;
 }

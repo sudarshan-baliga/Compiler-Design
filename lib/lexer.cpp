@@ -24,13 +24,14 @@ class Lexer
         rules.push_back({regex("(int|float|double|string|char)"), "TYPE"});
         rules.push_back({regex("begin"), "BEG"});
         rules.push_back({regex("end"), "END"});
-        rules.push_back({regex("[a-zA-Z_][a-zA-Z0-9]+"), "VAR"});
         rules.push_back({regex("\\("), "RBT"});
         rules.push_back({regex("\\)"), "LBT"});
         rules.push_back({regex("if"), "IF"});
         rules.push_back({regex("printf"), "PRT"});
         rules.push_back({regex(";"), "SM"});
         rules.push_back({regex(","), "CM"});
+        rules.push_back({regex("(>|<|>=|<=|!=)"), "RELOP"});
+        rules.push_back({regex("[a-zA-Z_][a-zA-Z0-9]+"), "VAR"});
     }
 
     void displayLexems()
