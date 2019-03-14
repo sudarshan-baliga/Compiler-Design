@@ -26,6 +26,17 @@ vector<string> readSrc(string path)
                 lexem = "";
                 relopLexem = "";
             }
+            else if (ch == '+' || ch == '-' || ch == '/' || ch == '*' | ch == '%')
+            {
+                if (lexem != "")
+                    words.push_back(lexem);
+                if (relopLexem != "")
+                    words.push_back(relopLexem);
+                lexem = ch;
+                words.push_back(lexem);
+                lexem = "";
+                relopLexem = "";
+            }
             else if (ch == '=' || ch == '<' || ch == '>' || ch == '!')
             {
                 if (lexem != "")

@@ -1,0 +1,21 @@
+
+
+
+S -> type main lbt rbt beg CODE end
+CODE -> IF_STMT CODE
+CODE -> DEC CODE
+CODE -> ''
+IF_STMT -> if lbt COND rbt beg PRT end
+PRT -> prt lbt var rbt sm
+PRT -> ''
+DEC -> type LIST sm
+LIST -> var LIST2
+LIST2 -> cm LIST
+LIST2 -> ''
+COND -> EXPR
+EXPR -> EXPRT EXPRP
+EXPR -> lbt EXPR rbt EXPRP
+EXPRT -> var
+EXPRT -> num
+EXPRP -> relop EXPR
+EXPRP -> ''

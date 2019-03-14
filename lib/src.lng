@@ -1,10 +1,12 @@
->
 int main()
 begin
     int n1, n2, n3;
-	if( expr > expr)
+	if( (a > b) < c)
 		begin
-			printf( n1 )
+			printf( n1 );
+	end
+	if( a > (c < d))
+		begin
+			printf( n1 );
 	end
 end
-<
