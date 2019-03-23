@@ -11,19 +11,19 @@ Lexer::Lexer(string path)
     tokenPtr = lexems.begin();
     // rules.push_back({regex("int"), "INT"});
     // rules.push_back({regex("void"), "VOID"});
-    rules.push_back({regex("main"), "MAIN"});
-    rules.push_back({regex("(int|float|double|string|char|void)"), "TYPE"});
-    rules.push_back({regex("begin"), "BEG"});
-    rules.push_back({regex("end"), "END"});
-    rules.push_back({regex("\\)"), "RBT"});
-    rules.push_back({regex("\\("), "LBT"});
-    rules.push_back({regex("if"), "IF"});
-    rules.push_back({regex("printf"), "PRT"});
-    rules.push_back({regex(";"), "SM"});
-    rules.push_back({regex(","), "CM"});
-    rules.push_back({regex("(>|<|>=|<=|!=)"), "RELOP"});
-    rules.push_back({regex("[a-zA-Z_][a-zA-Z0-9]*"), "VAR"});
-    rules.push_back({regex("\\+|\\-|\\*|/"), "OP"});
+    rules.push_back({regex("main"), "main"});
+    rules.push_back({regex("(int|float|double|string|char|void)"), "type"});
+    rules.push_back({regex("begin"), "beg"});
+    rules.push_back({regex("end"), "end"});
+    rules.push_back({regex("\\)"), "rbt"});
+    rules.push_back({regex("\\("), "lbt"});
+    rules.push_back({regex("if"), "if"});
+    rules.push_back({regex("printf"), "prt"});
+    rules.push_back({regex(";"), "sm"});
+    rules.push_back({regex(","), "cm"});
+    rules.push_back({regex("(>|<|>=|<=|!=)"), "relop"});
+    rules.push_back({regex("[a-zA-Z_][a-zA-Z0-9]*"), "var"});
+    rules.push_back({regex("\\+|\\-|\\*|/"), "op"});
 }
 
 void Lexer::displayLexems()
