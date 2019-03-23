@@ -23,15 +23,17 @@ void Ll1Parser::printStack()
 int Ll1Parser::parser()
 {
     string nxtTkn;
+    int count = 0;
     vector<string> prod;
     ParsingTable ParseTable;
     stk.push_back("$");
     stk.push_back("S");
     Lexer lex("src.lng");
+    nxtTkn = lex.getNextToken();
     while (true)
     {
-        nxtTkn = lex.getNextToken();
-        // cout << "Next token is " << nxtTkn << endl;
+        if (nxtTkn == "$")
+            return 0;
         // if next token is terminal
         if (stk.back() == nxtTkn)
         {
@@ -41,34 +43,35 @@ int Ll1Parser::parser()
             stk.pop_back();
         }
         // if it is non terminal
-        else {
+        else
+        {
             // get to the correct row in parser table
-            if(!ParseTable.table[{stk.back(), nxtTkn}].empty())
+            if (!ParseTable.table[{stk.back(), nxtTkn}].empty())
             {
                 prod = ParseTable.table[{stk.back(), nxtTkn}];
                 // remove the existing symbol from stack
                 stk.pop_back();
                 // push the production in revese order
-                for(auto it = prod.rbegin(); it != prod.rend(); it++)
+                for (auto it = prod.rbegin(); it != prod.rend(); it++)
                 {
-                    stk.push_back(*it);
+                    if (*it != " ")
+                        stk.push_back(*it);
                 }
                 // check if there is a match between top and input symbol
-                if(stk.back() == nxtTkn)
+                if (stk.back() == nxtTkn)
                     stk.pop_back();
-                else logError(stk.back(), nxtTkn);
                 printStack();
-                stk.pop_back();
+                cout << "\t" << nxtTkn << "\t";
                 cout << endl;
             }
             else
             {
                 logError(stk.back(), nxtTkn);
+                printStack();
+                cout << "\t" << nxtTkn << "\t";
             }
-            
         }
-        if(nxtTkn == "$")
-            return 0;
+        nxtTkn = lex.getNextToken();
     }
     return 0;
 }
