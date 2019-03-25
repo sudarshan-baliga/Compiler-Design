@@ -13,11 +13,8 @@ void logError(string stkSym, string token)
 
 void Ll1Parser::printStack()
 {
-    for (string str : stk)
-    {
-        cout << str << " ";
-    }
-    cout << "|";
+
+    cout << stk.back() << "|";
 }
 
 int Ll1Parser::parser()
@@ -34,14 +31,19 @@ int Ll1Parser::parser()
     {
         if (nxtTkn == "$")
             return 0;
+
+        printStack();
+        cout << "\t" << nxtTkn << "\t";
+
         // if next token is terminal
         if (stk.back() == nxtTkn)
         {
-            printStack();
-            cout << "\t" << nxtTkn << "\t";
-            cout << "Matched " << nxtTkn << endl;
+            cout << "Matched " << nxtTkn;
             stk.pop_back();
+            nxtTkn = lex.getNextToken();
         }
+
+
         // if it is non terminal
         else
         {
@@ -52,17 +54,19 @@ int Ll1Parser::parser()
                 // remove the existing symbol from stack
                 stk.pop_back();
                 // push the production in revese order
+                cout << "Using production " ;
                 for (auto it = prod.rbegin(); it != prod.rend(); it++)
                 {
                     if (*it != " ")
                         stk.push_back(*it);
+                    cout << *it << " ";
                 }
                 // check if there is a match between top and input symbol
                 if (stk.back() == nxtTkn)
+                {
                     stk.pop_back();
-                printStack();
-                cout << "\t" << nxtTkn << "\t";
-                cout << endl;
+                    nxtTkn = lex.getNextToken();
+                }
             }
             else
             {
@@ -71,7 +75,7 @@ int Ll1Parser::parser()
                 cout << "\t" << nxtTkn << "\t";
             }
         }
-        nxtTkn = lex.getNextToken();
+        cout << endl;
     }
     return 0;
 }

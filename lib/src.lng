@@ -1,11 +1,15 @@
 int main()
 begin
     int n1, n2, n3;
-	if( (a > b) < c)
+	if( a < b)
 		begin
 			printf( n1 );
 	end
 	if( a > (c < d))
+		begin
+			printf( n1 );
+	end
+		if( a < b)
 		begin
 			printf( n1 );
 	end
