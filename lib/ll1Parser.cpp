@@ -8,41 +8,50 @@ using namespace std;
 
 void logError(string stkSym, string token)
 {
-    cout << "There was an error stack symbol and token " << stkSym << " " << token << endl;
+    cout << "\033[1;31m There was an error stack symbol and token " << stkSym << " " << token << "\033[0m\n";
 }
 
 void Ll1Parser::printStack()
 {
 
-    cout << stk.back() << "|";
+    cout << "\033[1;36m" << stk.back() << "\033[0m";
+    //    cout << "\033[1;36m";
+    //     for(auto ele: stk)
+    //         cout << ele << " ";
+    //     cout << "\033[0m";
 }
 
 int Ll1Parser::parser()
 {
     string nxtTkn;
-    int count = 0;
     vector<string> prod;
     ParsingTable ParseTable;
     stk.push_back("$");
     stk.push_back("S");
     Lexer lex("src.lng");
     nxtTkn = lex.getNextToken();
+    cout << "\033[1;36mStackTop\033[0m "
+         << "\033[1;33mInput\033[0m "
+         << "\033[1;32mOutput\033[0m\n";
     while (true)
     {
         if (nxtTkn == "$")
-            return 0;
+        {
+                printStack();
+                cout << "\t$\t" << endl;
+                break;
+        }
 
         printStack();
-        cout << "\t" << nxtTkn << "\t";
+        cout << "\t\033[1;33m" << nxtTkn << "\033[0m\t";
 
         // if next token is terminal
         if (stk.back() == nxtTkn)
         {
-            cout << "Matched " << nxtTkn;
+            cout << "\033[1;32mMatched " << nxtTkn << "\033[0m";
             stk.pop_back();
             nxtTkn = lex.getNextToken();
         }
-
 
         // if it is non terminal
         else
@@ -51,28 +60,36 @@ int Ll1Parser::parser()
             if (!ParseTable.table[{stk.back(), nxtTkn}].empty())
             {
                 prod = ParseTable.table[{stk.back(), nxtTkn}];
+                if (*prod.rbegin() == "SYNCH")
+                {
+                    if (stk.size() == 1)
+                    {
+                        nxtTkn = lex.getNextToken();
+                        continue;
+                    }
+                    stk.pop_back();
+                    continue;
+                }
                 // remove the existing symbol from stack
                 stk.pop_back();
                 // push the production in revese order
-                cout << "Using production " ;
+                cout << "\033[1;32mUsing production ";
+
                 for (auto it = prod.rbegin(); it != prod.rend(); it++)
                 {
                     if (*it != " ")
+                    {
                         stk.push_back(*it);
+                    }
                     cout << *it << " ";
                 }
+                cout << "\033[0m";
                 // check if there is a match between top and input symbol
-                if (stk.back() == nxtTkn)
-                {
-                    stk.pop_back();
-                    nxtTkn = lex.getNextToken();
-                }
             }
             else
             {
-                logError(stk.back(), nxtTkn);
-                printStack();
-                cout << "\t" << nxtTkn << "\t";
+                cout << "Skipping " << nxtTkn;
+                nxtTkn = lex.getNextToken();
             }
         }
         cout << endl;

@@ -23,6 +23,7 @@ Lexer::Lexer(string path)
     rules.push_back({regex(","), "cm"});
     rules.push_back({regex("(>|<|>=|<=|!=)"), "relop"});
     rules.push_back({regex("[a-zA-Z_][a-zA-Z0-9]*"), "var"});
+    rules.push_back({regex("[0-9]+"), "num"});
     rules.push_back({regex("\\+|\\-|\\*|/"), "op"});
 }
 
