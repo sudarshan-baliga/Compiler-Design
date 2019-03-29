@@ -29,16 +29,23 @@ int Ll1Parser::parser()
     stk.push_back("$");
     stk.push_back("S");
     Lexer lex("src.lng");
+    success = true;
     nxtTkn = lex.getNextToken();
     cout << "\033[1;36mStackTop\033[0m "
          << "\033[1;33mInput\033[0m "
-         << "\033[1;32mOutput\033[0m\n";
+         << " \033[1;32mOutput\033[0m\n";
     while (true)
     {
         if (nxtTkn == "$")
         {
             printStack();
-            cout << "\033[1;33m\t$\t\033[0m" << endl;
+            cout << "\033[1;33m\t$\t\033[0m ";
+            if (stk.back() != "$")
+            {
+                success = false;
+                cout << "\033[1;31mSkipping " << nxtTkn << "\033[0m";
+            }
+            cout << "\n";
             break;
         }
 
@@ -62,6 +69,7 @@ int Ll1Parser::parser()
                 prod = ParseTable.table[{stk.back(), nxtTkn}];
                 if (*prod.rbegin() == "SYNCH")
                 {
+                    success = false;
                     cout << "\033[1;32m" << stk.back() << " -> ";
                     cout << "SYNCH\033[0m\n";
                     if (stk.size() == 1)
@@ -95,11 +103,16 @@ int Ll1Parser::parser()
             }
             else
             {
+                success = false;
                 cout << "\033[1;31mSkipping " << nxtTkn << "\033[0m";
                 nxtTkn = lex.getNextToken();
             }
         }
         cout << endl;
     }
+    if (success)
+        cout << "\033[1;32mThere was no error in parsing\n\033[0m";
+    else
+        cout << "\033[1;31mThere were errors in parsing\n\033[0m";
     return 0;
 }

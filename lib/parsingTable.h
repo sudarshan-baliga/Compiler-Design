@@ -9,5 +9,6 @@ class ParsingTable
 public:
   map<pair<string, string>, vector<string>> table;
   ParsingTable();
+  void showParsingTable();
 };
 #endif

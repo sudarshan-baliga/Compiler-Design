@@ -35,3 +35,18 @@ ParsingTable::ParsingTable()
     table[{"EXPRP", "rbt"}] = {" "};
     table[{"EXPRP", "relop"}] = {"relop", "EXPR"};
 }
+
+void ParsingTable::showParsingTable()
+{
+    for (auto itr = table.begin(); itr != table.end(); itr++)
+    {
+        cout << "\033[1;36m" << itr->first.first << "\033[0m\033[1;33m"
+             << " , " << itr->first.second << "\033[0m -> \033[1;32m";
+        if (*itr->second.begin() == " ")
+            cout << "\u03BB";
+        else
+            for (auto itr2 = itr->second.begin(); itr2 != itr->second.end(); itr2++)
+                cout << *itr2 << " ";
+        cout << endl << "\033[0m";
+    }
+}

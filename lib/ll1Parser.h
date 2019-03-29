@@ -8,6 +8,7 @@ class Ll1Parser{
     public:
         vector<string> stk;
         int parser();
+        bool success;
         void printStack();
 };
 

@@ -1,6 +1,5 @@
 int main()
-begin
-    int
+    int a;
 	if(n1 > n2)
 	begin
 		printf(fd);

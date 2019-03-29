@@ -11,4 +11,4 @@ parser: ./lib/ll1Parser.cpp
 main: main.cpp
 	g++ -c main.cpp
 clean: 
-	rm ./lib/output.o ./lib/readSrc.o ./lib/lexer.o ./lib/parsingTable.o ./lib/ll1Parser.o ./output
+	rm ./lib/output.o ./lib/readSrc.o ./lib/lexer.o ./lib/parsingTable.o ./lib/ll1Parser.o ./output 2> /dev/null
