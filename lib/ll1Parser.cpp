@@ -37,9 +37,9 @@ int Ll1Parser::parser()
     {
         if (nxtTkn == "$")
         {
-                printStack();
-                cout << "\t$\t" << endl;
-                break;
+            printStack();
+            cout << "\t$\t" << endl;
+            break;
         }
 
         printStack();
@@ -62,6 +62,8 @@ int Ll1Parser::parser()
                 prod = ParseTable.table[{stk.back(), nxtTkn}];
                 if (*prod.rbegin() == "SYNCH")
                 {
+                    cout << "\033[1;32m" << stk.back() << " -> ";
+                    cout << "SYNCH\033[0m\n";
                     if (stk.size() == 1)
                     {
                         nxtTkn = lex.getNextToken();
@@ -70,25 +72,30 @@ int Ll1Parser::parser()
                     stk.pop_back();
                     continue;
                 }
-                // remove the existing symbol from stack
-                stk.pop_back();
-                // push the production in revese order
-                cout << "\033[1;32mUsing production ";
 
-                for (auto it = prod.rbegin(); it != prod.rend(); it++)
+                // push the production in revese order
+                cout << "\033[1;32m" << stk.back() << " -> ";
+                for (auto it = prod.begin(); it != prod.end(); it++)
                 {
-                    if (*it != " ")
-                    {
-                        stk.push_back(*it);
-                    }
                     cout << *it << " ";
                 }
+                // remove the existing symbol from stack
+                stk.pop_back();
+                //push the production  in revrse order
+                if (*(prod.rbegin()) == " ")
+                    cout << "\u03BB";
+                else
+                    for (auto it = prod.rbegin(); it != prod.rend(); it++)
+                    {
+                        if (*it != " ")
+                            stk.push_back(*it);
+                    }
                 cout << "\033[0m";
                 // check if there is a match between top and input symbol
             }
             else
             {
-                cout << "Skipping " << nxtTkn;
+                cout << "\033[1;31mSkipping " << nxtTkn << "\033[0m";
                 nxtTkn = lex.getNextToken();
             }
         }
