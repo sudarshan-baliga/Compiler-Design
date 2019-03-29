@@ -14,7 +14,7 @@ void logError(string stkSym, string token)
 void Ll1Parser::printStack()
 {
 
-    cout << "\033[1;36m" << stk.back() << "\033[0m";
+    cout << "  \033[1;36m" << stk.back() << "\033[0m";
     //    cout << "\033[1;36m";
     //     for(auto ele: stk)
     //         cout << ele << " ";
@@ -38,7 +38,7 @@ int Ll1Parser::parser()
         if (nxtTkn == "$")
         {
             printStack();
-            cout << "\t$\t" << endl;
+            cout << "\033[1;33m\t$\t\033[0m" << endl;
             break;
         }
 

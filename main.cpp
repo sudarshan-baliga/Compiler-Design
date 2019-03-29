@@ -1,4 +1,4 @@
-#include "ll1Parser.h"
+#include "./lib/ll1Parser.h"
 
 int main()
 {
