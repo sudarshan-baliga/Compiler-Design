@@ -1,7 +1,8 @@
 int main()
-    int a;
-	if(n1 > n2)
-	begin
+    begin
+    int a
+	if(((a<b) < c)
+	begin;
 		printf(fd);
 	end
 end

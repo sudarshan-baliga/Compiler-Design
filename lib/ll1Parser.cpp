@@ -3,6 +3,7 @@
 #include <stack>
 #include "parsingTable.h"
 #include "lexer.h"
+#include <stdio.h>
 
 using namespace std;
 
@@ -14,7 +15,8 @@ void logError(string stkSym, string token)
 void Ll1Parser::printStack()
 {
 
-    cout << "  \033[1;36m" << stk.back() << "\033[0m";
+    // cout << "  \033[1;36m" << stk.back() << "\033[0m";
+    printf("\033[1;36m%5s", stk.back().c_str());
     //    cout << "\033[1;36m";
     //     for(auto ele: stk)
     //         cout << ele << " ";
